@@ -1,7 +1,95 @@
+using WebApplication1.Models;
+
 namespace WebApplication1.Services;
 
-public class Service1 : IService1
+public class LeetCode : IService1
 {
+    public int MissingNumber(int[] nums)
+    {
+        Array.Sort(nums);
+
+        var count = 0;
+        
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == count)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    
+    public int FindDuplicate(int[] nums)
+    {
+        var hash = new HashSet<int>();
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (hash.Contains(nums[i]))
+            {
+                return nums[i];
+            }
+
+            hash.Add(nums[i]);
+        }
+        
+        return 0;
+    }
+    
+    public int FirstMissingPositive(int[] nums) {
+        Array.Sort(nums);
+
+        var number = 1;
+        for (var i = 0; i < nums.Length; i++)
+        {
+            if (nums[i] == number)
+            {
+                number++;
+            }
+        }
+
+        return number;
+    }
+    
+    public ListNode ReverseList(ListNode head)
+    {
+        ListNode prev = null;
+        ListNode curr = head;
+
+        while (curr != null)
+        {
+            var nxt = curr.next;
+            
+            curr.next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        
+        return prev;
+    }
+    
+    public int MaxProfit(int[] prices)
+    {
+        var left = 0;
+        var maxProfit = 0;
+        
+        for (int right = 1; right < prices.Length; right++)
+        {
+            if (prices[left] < prices[right])
+            {
+                var profit = prices[right] - prices[left]; 
+                maxProfit = Math.Max(maxProfit, profit);
+            }
+            else
+            {
+                left = right;
+            }
+        }
+        
+        return maxProfit;
+    }
+    
     public List<IList<int>> FindDifference(int[] nums1, int[] nums2)
     {
         // var hash1 = new HashSet<int>(nums1);
@@ -226,7 +314,7 @@ public class Service1 : IService1
             }
         }
 
-        return n == 0;
+        return n <= 0;
     }
 
     public IList<bool> KidsWithCandies(int[] candies, int extraCandies)

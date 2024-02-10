@@ -2,6 +2,7 @@ namespace WebApplication1.Services;
 
 public interface IService1
 {
+    int MaxProfit(int[] prices);
     List<IList<int>> FindDifference(int[] nums1, int[] nums2);
     int[] TwoSum(int[] nums, int target);
     int Search(int[] nums, int target);

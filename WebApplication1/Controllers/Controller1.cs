@@ -13,6 +13,14 @@ public class Controller1 : ControllerBase
         _service1 = service1;
     }
     
+    [HttpGet(Name = "MaxProfit")]
+    public IActionResult MaxProfit([FromQuery] int[] prices)
+    {
+        var res = _service1.MaxProfit(prices);
+
+        return Ok(res);
+    }
+    
     [HttpGet(Name = "FindDifference")]
     public IActionResult FindDifference([FromQuery] int[] nums1, [FromQuery] int[] nums2)
     {
@@ -20,7 +28,6 @@ public class Controller1 : ControllerBase
 
         return Ok(res);
     }
-    
     
     [HttpPost(Name = "TwoSum")]
     public int[] TwoSum(int[] nums, int target)

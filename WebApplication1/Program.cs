@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IService1, Service1>();
+builder.Services.AddTransient<IService1, LeetCode>();
 
 var app = builder.Build();
 
