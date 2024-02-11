@@ -2,6 +2,125 @@ namespace WebApplication1.Services;
 
 public class Codility
 {
+    public int Dominator(int[] A) 
+    {
+        if (A.Length == 0)
+        {
+            return -1;
+        }
+        
+        if (A.Length == 1)
+        {
+            return 0;
+        }
+
+        var hashMap = new Dictionary<int, int>();
+            
+        var left = 0;
+        var right = A.Length - 1;
+        var res = -1;
+        var half = Math.Floor((decimal)A.Length / 2);
+        
+        while (left <= right)
+        {
+            if (left >= 0)
+            {
+                if (hashMap.ContainsKey(A[left]))
+                {
+                    hashMap[A[left]]++;
+                }
+                else
+                {
+                    hashMap.Add(A[left], 1);
+                }
+                
+                if (hashMap[A[left]] > half)
+                {
+                    res = left;
+                }
+            }
+            
+            if (right < A.Length && left != right)
+            {
+                if (hashMap.ContainsKey(A[right]))
+                {
+                    hashMap[A[right]]++;
+                }
+                else
+                {
+                    hashMap.Add(A[right], 1);
+                }
+                
+                if (hashMap[A[right]] > half)
+                {
+                    res = right;
+                }
+            }
+
+            left++;
+            right--;
+        }
+        
+        return res;
+    }
+    
+    public int DistinctNumbers(int[] A)
+    {
+        // [2, 1, 1, 2, 3, 1]
+        // [1]
+
+        if (A.Length == 0)
+        {
+            return 0;
+        }
+
+        var distinct = new HashSet<int>();
+            
+        var left = 0;
+        var right = A.Length - 1;
+
+        while (left <= right)
+        {
+            if (left >= 0)
+            {
+                distinct.Add(A[left]);
+            }
+            
+            if (right < A.Length)
+            {
+                distinct.Add(A[right]);
+            }
+
+            left++;
+            right--;
+        }
+        
+        return distinct.Count;
+    }
+    
+    public int PassingCars(int[] A)
+    {
+        var countOne = 0;
+        var res = 0;
+        var n = A.Length;
+
+        while (n > 0)
+        {
+            if (A[n - 1] == 1)
+            {
+                countOne++;
+            }
+            else
+            {
+                res += countOne;
+            }
+
+            n--;
+        }
+
+        return Math.Abs(res) > 1000000000 ? -1 : res;
+    }
+    
     public int Permutation(int[] A)
     {
         var count = new int[A.Length + 1];

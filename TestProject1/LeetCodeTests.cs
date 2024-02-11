@@ -12,6 +12,17 @@ public class LeetCodeTests : IClassFixture<WebApplicationFactory<Program>>
     {
         _factory = factory;
     }
+
+    [Theory]
+    [InlineData("abc", 3)]
+    public void CountSubstrings(string s, int expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.CountSubstrings(s);
+
+        Assert.Equal(expected, result);
+    }
     
     [Theory]
     [InlineData(new[] { 3, 0, 1 }, 2)]

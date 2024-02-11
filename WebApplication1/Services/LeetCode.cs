@@ -4,6 +4,30 @@ namespace WebApplication1.Services;
 
 public class LeetCode : IService1
 {
+    public int CountSubstrings(string s)
+    {
+        //baab
+        var count = 0;
+        
+        for (var i = 0; i < s.Length; i++)
+        {
+            Count(s, i, i);
+            Count(s, i, i + 1);
+        }
+        
+        return count;
+
+        void Count(string s1, int l, int r)
+        {
+            while (l >= 0 && r < s1.Length && s1[l] == s1[r])
+            {
+                l--;
+                r++;
+                count++;
+            }
+        }
+    }
+    
     public int MissingNumber(int[] nums)
     {
         Array.Sort(nums);
