@@ -14,6 +14,20 @@ public class LeetCodeTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Theory]
+    [InlineData("aaabbbcc", 2)]
+    [InlineData("aab", 0)]
+    [InlineData("ceabaacb", 2)]
+    
+    public void MinDeletions(string s, int expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.MinDeletions(s);
+
+        Assert.Equal(expected, result);
+    }
+    
+    [Theory]
     [InlineData("abc", 3)]
     public void CountSubstrings(string s, int expected)
     {

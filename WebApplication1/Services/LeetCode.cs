@@ -4,6 +4,36 @@ namespace WebApplication1.Services;
 
 public class LeetCode : IService1
 {
+    public int MinDeletions(string s)
+    {
+        var hashMap = new Dictionary<char, int>();
+        var hashSet = new HashSet<int>();
+        var count = 0;
+
+        foreach (var c in s)
+        {
+            if (!hashMap.TryAdd(c, 1))
+            {
+                hashMap[c]++;
+            }
+        }
+
+        foreach (var freRo in hashMap.Values)
+        {
+            var freq = freRo;
+            
+            while (freq > 0 && hashSet.Contains(freq))
+            {
+                freq--;
+                count++;
+            }
+
+            hashSet.Add(freq);
+        }
+        
+        return count;
+    }
+    
     public int CountSubstrings(string s)
     {
         //baab
