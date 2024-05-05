@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace WebApplication1.Services;
 
 public class CompanyT
@@ -79,5 +81,51 @@ public class CompanyT2
         var newstr = new string(chars);
         var rev = newstr[0] + " " + newstr[1]; 
         return rev;
+    }
+
+    public int[] FindIpRegion(string[] ips)
+    {
+        var res = new List<int>();
+
+        // 1: 0 - 50
+        // 2: 51 - 100
+        // 3: 101 - 150
+        // 4: 151 - 200
+        // 5: 201 - 255
+
+        var map = new Dictionary<int, int[]>();
+        map.Add(1, new int[] { 0, 50 });
+        map.Add(2, new int[] { 51, 100 });
+        map.Add(3, new int[] { 101, 150 });
+        map.Add(4, new int[] { 151, 200 });
+        map.Add(5, new int[] { 201, 255 });
+
+        foreach (var ip in ips)
+        {
+            var blocks = ip.Split('.');
+            var regionIp = Convert.ToInt32(blocks[0]);
+
+            foreach (var block in blocks)
+            {
+                var num = Convert.ToInt32(block);
+                if (num > 255)
+                {
+                    res.Add(-1);
+                    break;
+                }
+            }
+
+            foreach (var region in map)
+            {
+                var range = region.Value;
+                if (range[0] < regionIp && regionIp < range[1])
+                {
+                    res.Add(region.Key);
+                    break;
+                }
+            }
+        }
+
+        return res.ToArray();
     }
 }

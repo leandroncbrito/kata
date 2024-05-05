@@ -45,11 +45,27 @@ public class InterviewsTests
 
     [Theory]
     [InlineData("bat", "t a")]
-    public void Test_Case_2(string s, string expected)
+    public void Test_Invert_String(string s, string expected)
     {
         var sut = new CompanyT2();
 
         var actual = sut.solution(s);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData(
+        new string[] { "16.87.135.129", "60.87.135.129", "130.87.135.129", "180.87.135.129", "225.87.135.129" }, 
+        new int[] { 1, 2, 3, 4, 5 })]
+    [InlineData(
+        new string[] { "278.87.135.129", "60.567.135.129", "130.873.135.129", "180.827.135.129", "225.587.135.129" },
+        new int[] { -1, -1, -1, -1, -1 })]
+    public void Test_Find_Ip_Region(string[] listOfIps, int[] expected)
+    {
+        var sut = new CompanyT2();
+
+        var actual = sut.FindIpRegion(listOfIps);
 
         Assert.Equal(expected, actual);
     }
