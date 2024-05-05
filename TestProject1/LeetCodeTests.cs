@@ -14,6 +14,18 @@ public class LeetCodeTests : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Theory]
+    [InlineData(new int[] { 1, 3, -1, -3, 5, 3, 6, 7 }, 3, new int[] { 3, 3, 5, 5, 6, 7 })]
+
+    public void MaxSlidingWindow(int[] nums, int k, int[] expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.MaxSlidingWindow(nums, k);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
     [InlineData("aaabbbcc", 2)]
     [InlineData("aab", 0)]
     [InlineData("ceabaacb", 2)]

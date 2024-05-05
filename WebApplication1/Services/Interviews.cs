@@ -70,3 +70,14 @@ public class CompanyT1
 // WHERE row_num = 1 AND prev_price IS NOT NULL AND price > prev_price;
 
 
+public class CompanyT2
+{
+    public string solution(string S)
+    {
+        var chars = S.ToCharArray();
+        Array.Reverse(chars);
+        var newstr = new string(chars);
+        var rev = newstr[0] + " " + newstr[1]; 
+        return rev;
+    }
+}

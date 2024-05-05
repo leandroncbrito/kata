@@ -4,6 +4,36 @@ namespace WebApplication1.Services;
 
 public class LeetCode : IService1
 {
+    public int[] MaxSlidingWindow(int[] nums, int k)
+    {
+        var queue = new LinkedList<int>();
+        var result = new List<int>();
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            while (queue.Count > 0 && queue.First.Value < i - k + 1)
+            {
+                queue.RemoveFirst();
+            }
+
+            var currentVal = nums[i];
+
+            while (queue.Count > 0 && nums[queue.Last.Value] < currentVal)
+            {
+                queue.RemoveLast();
+            }
+
+            queue.AddLast(i);
+
+            if (i >= k - 1)
+            {
+                result.Add(nums[queue.First.Value]);
+            }
+        }
+
+        return result.ToArray();
+    }
+
     public int MinDeletions(string s)
     {
         var hashMap = new Dictionary<char, int>();

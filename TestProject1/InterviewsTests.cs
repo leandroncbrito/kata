@@ -34,9 +34,20 @@ public class InterviewsTests
     [InlineData("H-HH-HH", -1)]
     [InlineData("-H-HHH-H", -1)]
     [InlineData("HH-HH", -1)]
-    public void Test_Case_2(string s, int expected)
+    public void Test_Case_1(string s, int expected)
     {
         var sut = new CompanyT1();
+
+        var actual = sut.solution(s);
+
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("bat", "t a")]
+    public void Test_Case_2(string s, string expected)
+    {
+        var sut = new CompanyT2();
 
         var actual = sut.solution(s);
 
