@@ -4,6 +4,69 @@ namespace WebApplication1.Services;
 
 public class LeetCode : IService1
 {
+    public int[] TopKFrequent(int[] nums, int k)
+    {
+        // 1,1,1,2,2,3
+        int[] arr = new int[k];
+        var dict = new Dictionary<int, int>();
+
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (dict.ContainsKey(nums[i]))
+            {
+                dict[nums[i]]++;
+            }
+            else
+            {
+                dict.Add(nums[i], 1);
+            }
+        }
+
+        var pq = new PriorityQueue<int, int>();
+        foreach (var kv in dict)
+        {
+            pq.Enqueue(kv.Key, kv.Value);
+            if (pq.Count > k)
+            {
+                pq.Dequeue();
+            }
+        }
+
+        int j = k;
+        while (pq.Count > 0)
+        {
+            arr[j - 1] = pq.Dequeue();
+            j--;
+        }
+
+        return arr;
+    }
+
+    public int ContainerWithMostWater(int[] height)
+    {
+        var left = 0;
+        var right = height.Length - 1;
+        var res = 0;
+
+        while (left < right)
+        {
+            var minHeight = Math.Min(height[left], height[right]);
+            var area = minHeight * (right - left);
+            res = Math.Max(res, area);
+
+            if (height[left] < height[right])
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+        }
+
+        return res;
+    }
+
     public int[] MaxSlidingWindow(int[] nums, int k)
     {
         var queue = new LinkedList<int>();
@@ -51,7 +114,7 @@ public class LeetCode : IService1
         foreach (var freRo in hashMap.Values)
         {
             var freq = freRo;
-            
+
             while (freq > 0 && hashSet.Contains(freq))
             {
                 freq--;
@@ -60,21 +123,21 @@ public class LeetCode : IService1
 
             hashSet.Add(freq);
         }
-        
+
         return count;
     }
-    
+
     public int CountSubstrings(string s)
     {
         //baab
         var count = 0;
-        
+
         for (var i = 0; i < s.Length; i++)
         {
             Count(s, i, i);
             Count(s, i, i + 1);
         }
-        
+
         return count;
 
         void Count(string s1, int l, int r)
@@ -87,13 +150,13 @@ public class LeetCode : IService1
             }
         }
     }
-    
+
     public int MissingNumber(int[] nums)
     {
         Array.Sort(nums);
 
         var count = 0;
-        
+
         for (int i = 0; i < nums.Length; i++)
         {
             if (nums[i] == count)
@@ -104,7 +167,7 @@ public class LeetCode : IService1
 
         return count;
     }
-    
+
     public int FindDuplicate(int[] nums)
     {
         var hash = new HashSet<int>();
@@ -117,11 +180,12 @@ public class LeetCode : IService1
 
             hash.Add(nums[i]);
         }
-        
+
         return 0;
     }
-    
-    public int FirstMissingPositive(int[] nums) {
+
+    public int FirstMissingPositive(int[] nums)
+    {
         Array.Sort(nums);
 
         var number = 1;
@@ -135,7 +199,7 @@ public class LeetCode : IService1
 
         return number;
     }
-    
+
     public ListNode ReverseList(ListNode head)
     {
         ListNode prev = null;
@@ -144,25 +208,25 @@ public class LeetCode : IService1
         while (curr != null)
         {
             var nxt = curr.next;
-            
+
             curr.next = prev;
             prev = curr;
             curr = nxt;
         }
-        
+
         return prev;
     }
-    
+
     public int MaxProfit(int[] prices)
     {
         var left = 0;
         var maxProfit = 0;
-        
+
         for (int right = 1; right < prices.Length; right++)
         {
             if (prices[left] < prices[right])
             {
-                var profit = prices[right] - prices[left]; 
+                var profit = prices[right] - prices[left];
                 maxProfit = Math.Max(maxProfit, profit);
             }
             else
@@ -170,10 +234,10 @@ public class LeetCode : IService1
                 left = right;
             }
         }
-        
+
         return maxProfit;
     }
-    
+
     public List<IList<int>> FindDifference(int[] nums1, int[] nums2)
     {
         // var hash1 = new HashSet<int>(nums1);
@@ -187,13 +251,13 @@ public class LeetCode : IService1
         //     hash1.ToList(),
         //     hash2.ToList()
         // };
-        
+
         var set1 = new HashSet<int>(nums1);
         var set2 = new HashSet<int>(nums2);
 
         var distinct1 = new List<int>();
         var distinct2 = new List<int>();
-        
+
         foreach (var integer in set1)
         {
             if (!nums2.Contains(integer))
@@ -209,10 +273,10 @@ public class LeetCode : IService1
                 distinct2.Add(integer);
             }
         }
-        
-        return new List<IList<int>> {distinct1, distinct2};
+
+        return new List<IList<int>> { distinct1, distinct2 };
     }
-    
+
     public int[] TwoSum(int[] nums, int target)
     {
         var hashMap = new Dictionary<int, int>();
@@ -224,13 +288,13 @@ public class LeetCode : IService1
             {
                 return new[] { value, i };
             }
-            
+
             hashMap[nums[i]] = i;
         }
-        
+
         return new[] { 0 };
     }
-    
+
     public int Search(int[] nums, int target)
     {
         int lo = 0;
@@ -239,7 +303,7 @@ public class LeetCode : IService1
         while (lo <= hi)
         {
             var mid = lo + (hi - lo) / 2;
-            
+
             if (nums[mid] == target)
             {
                 return mid;
@@ -254,17 +318,17 @@ public class LeetCode : IService1
                 lo = mid + 1;
             }
         }
-        
-        
+
+
         return -1;
     }
-    
+
     public int SumOfTwoLowestNumbers(int[] nums)
     {
         // var numbers = nums.ToList();
-        
+
         // numbers.Sort();
-        
+
         // return numbers[0] + numbers[1];
 
         // var numbers = new int [] { };
@@ -284,16 +348,16 @@ public class LeetCode : IService1
                 index++;
             }
         }
-        
-        return nums[0] + nums[1];       
+
+        return nums[0] + nums[1];
     }
-    
+
     public bool IsPalindrome(string s)
     {
         // var res = Regex.Replace(s.ToLowerInvariant(), "[^a-z0-9]", "");
         // var rev = new string(res.ToCharArray().Reverse().ToArray());
         // return res == rev;
-        
+
         var res = string.Empty;
         foreach (var c in s)
         {
@@ -310,15 +374,15 @@ public class LeetCode : IService1
         {
             rev += res[i];
         }
-        
+
         return res == rev;
     }
-    
+
     public int LargestAltitude(int[] gain)
     {
         var sum = 0;
         var max = 0;
-        
+
         foreach (var alt in gain)
         {
             sum += alt;

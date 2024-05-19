@@ -13,6 +13,33 @@ public class LeetCodeTests : IClassFixture<WebApplicationFactory<Program>>
         _factory = factory;
     }
 
+
+    [Theory]
+    [InlineData(new int[] { 1,1,1,2,2,3 }, 2, new int[] { 1,2 })]
+    [InlineData(new int[] { 1 }, 1, new int[] { 1 })]
+
+    public void TopKFrequent(int[] nums, int k, int[] expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.TopKFrequent(nums, k);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(new int[] { 1,8,6,2,5,4,8,3,7 }, 49)]
+    [InlineData(new int[] { 1,1 }, 1)]
+
+    public void ContainerWithMostWater(int[] height, int expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.ContainerWithMostWater(height);
+
+        Assert.Equal(expected, result);
+    }
+
     [Theory]
     [InlineData(new int[] { 1, 3, -1, -3, 5, 3, 6, 7 }, 3, new int[] { 3, 3, 5, 5, 6, 7 })]
 
