@@ -2,6 +2,54 @@ namespace WebApplication1.Services;
 
 public class Codility
 {
+    public int StrSymmetryPoint(string S)
+    {
+        if (S.Length % 2 == 0)
+        {
+            return -1;
+        }
+
+        var mid = S.Length / 2;
+
+        var left = S.Substring(0, mid);
+        var right = S.Substring(mid + 1, mid);
+
+        var reverse = new string(right.Reverse().ToArray());
+
+        if (left.ToString().Equals(reverse, StringComparison.OrdinalIgnoreCase))
+        {
+            return mid;
+        }
+
+        return -1;
+    }
+
+    public int UniqueNumber(int[] A)
+    {       
+        var hashMap = new Dictionary<int, int>();
+        for (int i = 0; i < A.Length; i++)
+        {
+            if (hashMap.ContainsKey(A[i]))
+            {
+                hashMap[A[i]]++;
+            }
+            else
+            {
+                hashMap.Add(A[i], 1);
+            }
+        }
+
+        foreach (var item in  hashMap)
+        {
+            if (item.Value == 1)
+            {
+                return item.Key;
+            }
+        }
+
+       return -1;
+    }
+
     public int Dominator(int[] A) 
     {
         if (A.Length == 0)

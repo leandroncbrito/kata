@@ -5,6 +5,30 @@ namespace TestProject1;
 public class CodilityTests
 {
     [Theory]
+    [InlineData("racecar", 3)]
+    [InlineData("x", 0)]
+    public void StrSymmetryPoint(string S, int expected)
+    {
+        var sut = new Codility();
+
+        var result = sut.StrSymmetryPoint(S);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
+    [InlineData(new[] { 1, 4, 3, 3, 1, 2, }, 4)]
+    [InlineData(new[] { 6, 4, 4, 6 }, -1)]
+    public void UniqueNumber(int[] A, int expected)
+    {
+        var sut = new Codility();
+
+        var result = sut.UniqueNumber(A);
+
+        Assert.Equal(expected, result);
+    }     
+    
+    [Theory]
     [InlineData(new[] { 3, 4, 3, 2, 3, -1, 3, 3 }, 4)]
     [InlineData(new[] { 3, 3, 4, 5, 6, 6, 6 }, -1)]
     [InlineData(new[] { 6, 2, 2 }, 1)]
