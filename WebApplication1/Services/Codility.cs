@@ -2,6 +2,45 @@ namespace WebApplication1.Services;
 
 public class Codility
 {
+    public class Interval
+    {
+        public int start, end;
+        public Interval(int start, int end)
+        {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public bool CanAttendMeetings(List<Interval> intervals)
+    {
+        var ordered = intervals.OrderBy(x => x.start).ToList();
+
+        for (int i = 1; i < ordered.Count; i++)
+        {
+            if (ordered[i-1].end > ordered[i].start)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public int CountDiv(int A, int B, int K)
+    {
+        var count = 0;
+        for (int i = A; i <= B; i++)
+        {
+            if (i % K ==0)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
     public int StrSymmetryPoint(string S)
     {
         if (S.Length % 2 == 0)

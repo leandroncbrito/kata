@@ -5,6 +5,18 @@ namespace TestProject1;
 public class CodilityTests
 {
     [Theory]
+    [InlineData(6, 11, 2, 3)]
+    [InlineData(11, 345, 17, 20)]
+    public void CountDiv(int A, int B, int K, int expected)
+    {
+        var sut = new Codility();
+
+        var result = sut.CountDiv(A, B, K);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Theory]
     [InlineData("racecar", 3)]
     [InlineData("x", 0)]
     public void StrSymmetryPoint(string S, int expected)

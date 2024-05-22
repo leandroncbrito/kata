@@ -4,6 +4,57 @@ namespace WebApplication1.Services;
 
 public class LeetCode : IService1
 {
+    public int LengthOfLongestSubstring(string s)
+    {
+        int leftPointer = 0, rightPointer = 0, maxLength = 0;
+        var chars = new HashSet<int>();
+
+        while (rightPointer < s.Length)
+        {
+            var currChar = s[rightPointer];
+            if (chars.Contains(currChar))
+            {
+                chars.Remove(s[leftPointer]);
+                leftPointer++;
+            }
+            else
+            {
+                chars.Add(currChar);
+                maxLength = Math.Max(maxLength, rightPointer - leftPointer + 1);
+                rightPointer++;
+            }
+        }
+
+
+        return maxLength;
+    }
+
+    public int LongestConsecutive(int[] nums)
+    {
+        if (nums.Length < 2)
+        {
+            return nums.Length;
+        }
+
+        var hs = new HashSet<int>(nums);
+        var longest = 0;
+
+        foreach (var item in hs)
+        {
+            if (hs.Contains(item - 1) is false)
+            {
+                var lenght = 0;
+                while (hs.Contains(item + lenght)) 
+                {
+                    lenght++;
+                    longest = Math.Max(longest, lenght);
+                }
+            }
+        }
+
+        return longest;
+    }
+
     public int[] TopKFrequent(int[] nums, int k)
     {
         // 1,1,1,2,2,3

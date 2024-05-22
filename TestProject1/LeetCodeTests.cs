@@ -13,6 +13,33 @@ public class LeetCodeTests : IClassFixture<WebApplicationFactory<Program>>
         _factory = factory;
     }
 
+    [Theory]
+    [InlineData("zxyzxyz", 3)]
+    [InlineData("abcabcbb", 3)]
+    [InlineData("pwwkew", 3)]
+    [InlineData("xxxx", 1)]
+
+    public void LengthOfLongestSubstring(string s, int expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.LengthOfLongestSubstring(s);
+
+        Assert.Equal(expected, result);
+    }    
+    
+    [Theory]
+    [InlineData(new int[] { 2, 20, 4, 10, 3, 4, 5 }, 4)]
+    [InlineData(new int[] { 0, 3, 2, 5, 4, 6, 1, 1 }, 7)]
+
+    public void LongestConsecutive(int[] nums, int expected)
+    {
+        var sut = new LeetCode();
+
+        var result = sut.LongestConsecutive(nums);
+
+        Assert.Equal(expected, result);
+    }
 
     [Theory]
     [InlineData(new int[] { 1,1,1,2,2,3 }, 2, new int[] { 1,2 })]
